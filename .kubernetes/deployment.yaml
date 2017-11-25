@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ${REPO_NAME}
+  labels:
+    commit: ${COMMIT_SHA}
+    build_number: ${BUILD_ID}
+spec:
+  revisionHistoryLimit: 5
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        role: ${REPO_NAME}
+      annotations:
+        commit: ${COMMIT_SHA}
+        build_number: "${BUILD_ID}"
+    spec:
+      containers:
+      - name: api
+        image: gcr.io/${PROJECT_ID}/${REPO_NAME}:${COMMIT_SHA}-${BUILD_ID}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+        securityContext:
+          privileged: false
