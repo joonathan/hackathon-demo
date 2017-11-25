@@ -6,7 +6,7 @@ import (
 )
 
 func handler(w http.ResponseWriter, req *http.Request) {
-	w.Write([]byte("Hello, Junction 2017!"))
+	w.Write([]byte("Hello, world!"))
 }
 
 func main() {
